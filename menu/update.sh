@@ -40,46 +40,16 @@ URL="https://api.telegram.org/bot$KEY/sendMessage"
 
 # -----------------------------
 # Variabel Server & User
-# -----------------------------
-domain=$(cat /etc/xray/domain)
+domain=$(cat /etc/xray/domain 2>/dev/null)
 MYIP=$(curl -sS ipv4.icanhazip.com)
-echo ""
-# SET MANUAL (tanpa GitHub)
-username="localuser"
-valid="4000-12-31"
-echo "$username" > /usr/bin/user
-echo "$valid" > /usr/bin/e
-today=`date -d "0 days" +"%Y-%m-%d"`
-#oid=$(cat /usr/bin/ver)
-exp=$(cat /usr/bin/e)
+username=$(cat /usr/bin/user 2>/dev/null || echo "OPEN-SOURCE")
+valid=$(cat /usr/bin/e 2>/dev/null || echo "2099-12-31")
+exp="$valid"
 COLOR1='\033[1;36m'
 NC='\e[0m'
 GREEN='\033[0;32m'
 RED='\033[0;31m'
-clear
-d1=$(date -d "$valid" +%s)
-d2=$(date -d "$today" +%s)
-certifacate=$(((d1 - d2) / 86400))
-DATE=$(date +'%Y-%m-%d')
-datediff() {
-d1=$(date -d "$1" +%s)
-d2=$(date -d "$2" +%s)
-echo -e "${COLOR1}Expiry In   : $(( (d1 - d2) / 86400 )) Days${NC}"
-}
-mai=$(datediff "$exp" "$DATE")
-Info="${GREEN}Active${NC}"
-Error="${RED}Expired${NC}"
-if [[ "$certifacate" -le "0" ]]; then
-sts="${Error}"
-echo -e " ${RED}Masa Aktif Script Kamu Sudah Habis${NC}"
-echo -e " ${RED}Silahkan Contact Admin Untuk Perpanjang ${NC}"
-echo -e " ${GREEN}Whatsapp = wa.me/6281327393959 ${NC}"
-echo -e " ${GREEN}Telegram = @ARI_VPN_STORE ${NC}"
-sleep 3
-exit 1
-else
-sts="${Info}"
-fi
+sts="${GREEN}Active${NC}"
 
 # Mendapatkan tanggal dari server
 echo -e " [INFO] Fetching server date..."
@@ -87,8 +57,7 @@ dateFromServer=$(curl -v --insecure --silent https://google.com/ 2>&1 | grep Dat
 biji=$(date +"%Y-%m-%d" -d "$dateFromServer")
 
 # Repository
-REPO="http://raw.githubusercontent.com/irulgood/v7/main/"
-
+REPO="$(cat /etc/repo2)"
 # -----------------------------
 # Download & Setup Menu
 # -----------------------------
@@ -103,16 +72,18 @@ PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 END
 
     wget -O /usr/bin/autocpu "${REPO}install/autocpu.sh" && chmod +x /usr/bin/autocpu
-    wget -q ${REPO}menu/menu.zip
     mv menu/expsc /usr/local/sbin/expsc
     wget -q -O /usr/bin/enc "${REPO}install/encrypt"
     chmod +x /usr/bin/enc
 
     # Extract dan encrypt menu
-    unzip menu.zip &> /dev/null
-    chmod +x menu/*
-    enc menu/* &> /dev/null
-    mv menu/* /usr/local/sbin
+wget -q ${REPO}menu/menu.zip
+# Extract pakai 7z (lebih aman)
+7z x -p'coding_sendiri_lah_goblok_cuman_bisa_nyuri' menu.zip &> /dev/null
+# Baru jalanin setelah extract
+chmod +x menu/*
+#enc menu/* &> /dev/null
+mv menu/* /usr/local/sbin
 
     # Cleanup
     rm -rf menu menu.zip

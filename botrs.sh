@@ -22,7 +22,8 @@ rm -rf cybervpn
 
 clear
 
-wget  $(cat /etc/repo2)bot/cybervpn.zip
+REPO=$(cat /etc/repo2 2>/dev/null || echo "https://raw.githubusercontent.com/irulgood/v7/main/")
+wget "${REPO}bot/cybervpn.zip"
 unzip cybervpn.zip
 cd cybervpn
 rm var.txt

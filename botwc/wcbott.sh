@@ -43,7 +43,7 @@ ICO_LOCK="🔑"
 ICO_USER="👤"
 ICO_BOX="◆"
 
-URL="http://raw.githubusercontent.com/irulgood/v7/main/botwc/botwildcard.zip"
+URL="https://raw.githubusercontent.com/irulgood/v7/main/botwc/botwildcard.zip"
 
 # =========================
 # UI FUNCTION

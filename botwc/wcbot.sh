@@ -28,7 +28,7 @@ ICO_INFO="ℹ"
 ICO_STEP="▸"
 ICO_BOX="◆"
 
-URL="http://raw.githubusercontent.com/irulgood/v7/main/botwc/botwildcard.zip"
+URL="https://raw.githubusercontent.com/irulgood/v7/main/botwc/botwildcard.zip"
 
 line() {
   echo -e "${WHITE}──────────────────────────────────────────────────────────────${RESET}"

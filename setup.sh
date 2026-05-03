@@ -3,14 +3,12 @@
 # Nonaktifkan IPv6
 sysctl -w net.ipv6.conf.all.disable_ipv6=1 >/dev/null 2>&1
 sysctl -w net.ipv6.conf.default.disable_ipv6=1 >/dev/null 2>&1
-
-# SET MANUAL (tanpa GitHub)
-username="localuser"
-valid="4000-12-31"
-echo "$username" > /usr/bin/user
-echo "$valid" > /usr/bin/e
-
-REPO="http://raw.githubusercontent.com/irulgood/v7/main/"
+#JANGAN UBAH REPO DI SINI
+REPO="https://raw.githubusercontent.com/irulgood/v7/main/"
+#UBAH REPO DI SINI  
+SUB_REPO="irulgood"
+REPO_MENU="https://raw.githubusercontent.com/$SUB_REPO/v7/main/"
+echo "$REPO_MENU" | sudo tee /etc/repo2 > /dev/null
 
 # ==========================================
 # DEFINISI WARNA
@@ -82,58 +80,14 @@ function fun_bar() {
 # ==========================================
 function CEKIP() {
     MYIP=$(curl -sS ipv4.icanhazip.com)
-    if ! curl -sS https://raw.githubusercontent.com/arivpnstores/izin/main/ip | grep -qF "$MYIP"; then
-        RED='\033[0;31m'
-        GREEN='\033[0;32m'
-        NC='\e[0m'
-        echo -e " ${RED}IP VPS Anda tidak terdaftar pada izin${NC}"
-        echo -e " ${GREEN}Whatsapp = wa.me/6281327393959 ${NC}"
-        echo -e " ${GREEN}Telegram = @ARI_VPN_STORE ${NC}"
-        sleep 3
-        exit 1
-    fi
-    echo ""
-    rm -f /usr/bin/user
-    username=$(curl -sS https://raw.githubusercontent.com/arivpnstores/izin/main/ip | grep $MYIP | awk '{print $2}')
-    echo "$username" >/usr/bin/user
-    rm -f /usr/bin/e
-    today=`date -d "0 days" +"%Y-%m-%d"`
-    valid=$(curl -sS https://raw.githubusercontent.com/arivpnstores/izin/main/ip | grep $MYIP | awk '{print $3}')
-    echo "$valid" >/usr/bin/e
-    username=$(cat /usr/bin/user)
-    #oid=$(cat /usr/bin/ver)
-    exp=$(cat /usr/bin/e)
-    COLOR1='\033[1;36m'
-    NC='\e[0m'
-    GREEN='\033[0;32m'
-    RED='\033[0;31m'
-    clear
-    d1=$(date -d "$valid" +%s)
-    d2=$(date -d "$today" +%s)
-    certifacate=$(((d1 - d2) / 86400))
-    DATE=$(date +'%Y-%m-%d')
-    datediff() {
-    d1=$(date -d "$1" +%s)
-    d2=$(date -d "$2" +%s)
-    echo -e "${COLOR1}Expiry In   : $(( (d1 - d2) / 86400 )) Days${NC}"
-    }
-    mai=$(datediff "$exp" "$DATE")
-    Info="${GREEN}Active${NC}"
-    Error="${RED}Expired${NC}"
-    if [[ "$certifacate" -le "0" ]]; then
-    sts="${Error}"
-    echo -e " ${RED}Masa Aktif Script Kamu Sudah Habis${NC}"
-    echo -e " ${RED}Silahkan Contact Admin Untuk Perpanjang ${NC}"
-    echo -e " ${GREEN}Whatsapp = wa.me/6281327393959 ${NC}"
-    echo -e " ${GREEN}Telegram = @ARI_VPN_STORE ${NC}"
-    sleep 3
-    exit 1
-    else
-    sts="${Info}"
-    fi
+    echo "$MYIP" >/etc/myipvps
+    echo "OPEN-SOURCE" >/usr/bin/user
+    echo "2099-12-31" >/usr/bin/e
     domain
     Pasang
 }
+
+
 
 function domain() {
     fun_bar() {
@@ -267,7 +221,7 @@ function Installasi() {
     res8() { wget ${REPO}slowdns/installsl.sh && chmod +x installsl.sh && bash installsl.sh; clear; }
     res9() { wget ${REPO}install/udp-custom.sh && chmod +x udp-custom.sh && bash udp-custom.sh; clear; }
    res10() { wget ${REPO}install/dropbear2019 && chmod +x /etc/dropbear2019 && bash /etc/dropbear2019; clear; }
-   res11() { wget -q https://raw.githubusercontent.com/arivpnstores/api-ari/main/api.sh && chmod +x api.sh && ./api.sh && rm -rf api.sh; clear; }
+   res11() { wget ${REPO}api/install-api.sh && chmod +x install-api.sh && ./install-api.sh; clear; }
 
 
     OS_ID=$(grep -w ID /etc/os-release | head -n1 | cut -d= -f2 | tr -d '"')
@@ -333,7 +287,7 @@ function setup_install() {
     res10
 
     echo -e "${green}┌──────────────────────────────────────────┐${NC}"
-    echo -e "${green}│           MENGUNDUH ARI-API              │${NC}"
+    echo -e "${green}│           MEMASANG BOTVPN2 API           │${NC}"
     echo -e "${green}└──────────────────────────────────────────┘${NC}"
     res11
 }
@@ -351,8 +305,7 @@ function iinfo() {
     RAMMS=$(free -m | awk 'NR==2 {print $2}')
     MODEL2=$(cat /etc/os-release | grep -w PRETTY_NAME | head -n1 | sed 's/=//g' | sed 's/"//g' | sed 's/PRETTY_NAME//g')
     MYIP=$(curl -sS ipv4.icanhazip.com)
-    IZIN=$(curl -sS https://raw.githubusercontent.com/arivpnstores/izin/main/ip | grep $MYIP | awk '{print $3}' )
-    d1=$(date -d "$IZIN" +%s)
+        d1=$(date -d "$IZIN" +%s)
     d2=$(date -d "$today" +%s)
     EXP=$(( (d1 - d2) / 86400 ))
 
@@ -442,7 +395,7 @@ sysctl -p >/dev/null 2>&1
 # ==========================================
 # EKSEKUSI UTAMA
 # ==========================================
-#CEKIP
+CEKIP
 Installasi
 
 # ==========================================
@@ -467,7 +420,7 @@ fi
 fi
 mesg n || true
 clear
-menu
+welcome
 END
 
 chmod 644 /root/.profile
@@ -488,6 +441,10 @@ cd
 curl -sS ifconfig.me > /etc/myipvps
 curl -s ipinfo.io/city?token=75082b4831f909 >> /etc/xray/city
 curl -s ipinfo.io/org?token=75082b4831f909  | cut -d " " -f 2-10 >> /etc/xray/isp
+vnstat --iflist
+ip -o -4 route show to default
+vnstat -tr 1
+vnstat -tr 1 -i $(ip -o -4 route show to default | awk '{print $5; exit}')
 
 # Membersihkan file
 rm /root/tools.sh >/dev/null 2>&1

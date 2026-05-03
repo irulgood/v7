@@ -1,0 +1,10 @@
+{
+  "name": "v7-botvpn-api",
+  "version": "1.0.0",
+  "description": "API adapter agar script v7 sejalan dengan BotVPN dan BotVPN2",
+  "main": "api.js",
+  "scripts": {
+    "start": "node api.js"
+  },
+  "license": "MIT"
+}

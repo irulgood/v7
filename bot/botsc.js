@@ -2,7 +2,7 @@ const { Telegraf } = require('telegraf');
 const { NodeSSH } = require('node-ssh');
 const ssh = new NodeSSH();
 
-const bot = new Telegraf('5802497311:AAGsjehKTqNf4kmF42SMdyk4YlqsxNzoA1Q'); // Ganti dengan token bot Anda
+const bot = new Telegraf('ISI_TOKEN_BOT_KAMU'); // Ganti dengan token bot Anda
 
 // Daftar ID Telegram yang diizinkan
 const allowedUsers = [ID_TELE, ID_TELE]; // Ganti dengan ID Telegram yang diizinkan

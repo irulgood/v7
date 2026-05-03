@@ -1,64 +1,44 @@
 #!/bin/bash
-Green="\e[92;1m"
-RED="\033[31m"
-YELLOW="\033[33m"
-BLUE="\033[36m"
-FONT="\033[0m"
-GREENBG="\033[42;37m"
-REDBG="\033[41;37m"
-OK="${Green}--->${FONT}"
-ERROR="${RED}[ERROR]${FONT}"
-GRAY="\e[1;30m"
-NC='\e[0m'
-red='\e[1;31m'
-green='\e[0;36m'
-DF='\e[39m'
-Bold='\e[1m'
-Blink='\e[5m'
-yell='\e[33m'
-red='\e[31m'
-green='\e[36m'
-blue='\e[34m'
-PURPLE='\e[35m'
-cyan='\e[36m'
-Lred='\e[91m'
-Lgreen='\e[92m'
-Lyellow='\e[93m'
 NC='\e[0m'
 GREEN='\033[0;36m'
-ORANGE='\033[0;33m'
-LIGHT='\033[0;37m'
-grenbo="\e[92;1m"
-red() { echo -e "\\033[32;1m${*}\\033[0m"; }
-# Getting
-#IZIN SCRIPT
-MYIP=$(curl -sS ipv4.icanhazip.com)
-
+YELLOW='\033[0;33m'
+MODE_FILE="/etc/ari-ui-mode"
+[ -f "$MODE_FILE" ] && UI_MODE=$(cat "$MODE_FILE") || UI_MODE="full"
 clear
-# Valid Script
-ipsaya=$(wget -qO- ipinfo.io/ip)
-data_server=$(curl -v --insecure --silent https://google.com/ 2>&1 | grep Date | sed -e 's/< Date: //')
-date_list=$(date +"%Y-%m-%d" -d "$data_server")
-clear
-echo -e "\033[0;34m┌──────────────────────────────────────────┐\033[0m"
-echo -e "  \033[1;96m            MENU ALL SERVICE            $NC"
-echo -e "\033[0;34m└──────────────────────────────────────────┘\033[0m"
-echo -e "\033[0;34m┌──────────────────────────────────────────┐\033[0m"
-echo -e "\033[0;34m ${NC}${GREEN} [01]•${NC} RUNNING SYSTEM${NC}"
-echo -e "\033[0;34m ${NC}${GREEN} [02]•${NC} PORT VPS INFO${NC}"
-echo -e "\033[0;34m ${NC}${GREEN} [03]•${NC} LOAD VPS INFO${NC}"
-echo -e "\033[0;34m ${NC}${GREEN} [04]•${NC} AUTOREBOOT SERVER${NC}"
-echo -e "\033[0;34m ${NC}${GREEN} [05]•${NC} RESTART SERVICE${NC}"
-echo -e "\033[0;34m ${NC}${GREEN} [06]•${NC} REBOOT SERVICE${NC}"
-echo -e "\033[0;34m ${NC}${GREEN} [07]•${NC} CLEAR CACHE${NC}"
-echo -e "\033[0;34m ${NC}${GREEN} [08]•${NC} CEK BANDWITH${NC}"
-echo -e "\033[0;34m ${NC}${GREEN} [09]•${NC} AUTOKILL${NC}"
-echo -e "\033[0;34m ${NC}${GREEN} [10]•${NC} AUTO REBOOT${NC}"
-echo -e "\033[0;34m ${NC}${GREEN} [11]•${NC} INSTALL PLUGIN BOT SELLER${NC}"
-echo -e "\033[0;34m ${NC}${GREEN} [12]•${NC} GANTI VERSI DROPBEAR${NC}"
-echo -e "\033[0;34m└──────────────────────────────────────────┘\033[0m"
-echo -e ""
-read -p "Select From Options [ 1 - 6 ] : " menu
+echo -e "\033[0;34m┌──────────────────────────────────────────────┐${NC}"
+echo -e "\033[0;34m│ \033[41;97m                MENU ALL SERVICE            \033[0;34m │${NC}" 
+echo -e "\033[0;34m└──────────────────────────────────────────────┘${NC}"
+echo -e "\033[0;34m┌──────────────────────────────────────────────┐${NC}"
+echo -e "\033[0;34m│  ${GREEN}[01]${NC} RUNNING SYSTEM                         \033[0;34m│${NC}"
+echo -e "\033[0;34m│  ${GREEN}[02]${NC} PORT VPS INFO                          \033[0;34m│${NC}"
+echo -e "\033[0;34m│  ${GREEN}[03]${NC} LOAD VPS INFO                          \033[0;34m│${NC}"
+echo -e "\033[0;34m│  ${GREEN}[04]${NC} AUTOREBOOT SERVER                      \033[0;34m│${NC}"
+echo -e "\033[0;34m│  ${GREEN}[05]${NC} RESTART SERVICE                        \033[0;34m│${NC}"
+echo -e "\033[0;34m│  ${GREEN}[06]${NC} REBOOT SERVICE                         \033[0;34m│${NC}"
+echo -e "\033[0;34m│  ${GREEN}[07]${NC} CLEAR CACHE                            \033[0;34m│${NC}"
+echo -e "\033[0;34m│  ${GREEN}[08]${NC} CEK BANDWITH                           \033[0;34m│${NC}"
+echo -e "\033[0;34m│  ${GREEN}[09]${NC} AUTOKILL                               \033[0;34m│${NC}"
+echo -e "\033[0;34m│  ${GREEN}[10]${NC} AUTO REBOOT                            \033[0;34m│${NC}"
+echo -e "\033[0;34m│  ${GREEN}[11]${NC} INSTALL PLUGIN BOT SELLER              \033[0;34m│${NC}"
+echo -e "\033[0;34m│  ${GREEN}[12]${NC} GANTI VERSI DROPBEAR                   \033[0;34m│${NC}"
+echo -e "\033[0;34m│  ${GREEN}[13]${NC} WARP CLOUDFLARE                        \033[0;34m│${NC}"
+echo -e "\033[0;34m│  ${GREEN}[14]${NC} ROUTING MANAGER                        \033[0;34m│${NC}"
+echo -e "\033[0;34m│  ${GREEN}[15]${NC} SECURITY SYN ETC                       \033[0;34m│${NC}"
+echo -e "\033[0;34m│  ${GREEN}[16]${NC} SET AUTO UPDATE                        \033[0;34m│${NC}"
+echo -e "\033[0;34m│  ${GREEN}[17]${NC} UI MODE (FULL/COMPACT)                 \033[0;34m│${NC}"
+echo -e "\033[0;34m│  ${GREEN}[18]${NC} HEALTH CHECK PANEL                     \033[0;34m│${NC}"
+echo -e "\033[0;34m│  ${GREEN}[19]${NC} CLIENT CONFIG CHECKER                  \033[0;34m│${NC}"
+echo -e "\033[0;34m│  ${GREEN}[20]${NC} BACKUP SCHEDULE + ROTATION             \033[0;34m│${NC}"
+echo -e "\033[0;34m│  ${GREEN}[21]${NC} DNS / DOMAIN FAILOVER CHECK            \033[0;34m│${NC}"
+echo -e "\033[0;34m│  ${GREEN}[22]${NC} ABUSE MONITOR                          \033[0;34m│${NC}"
+echo -e "\033[0;34m│  ${GREEN}[23]${NC} ONE-CLICK EMERGENCY MODE               \033[0;34m│${NC}"
+echo -e "\033[0;34m│  ${GREEN}[24]${NC} CUSTOM DNS MANAGER                     \033[0;34m│${NC}"
+echo -e "\033[0;34m│  ${GREEN}[25]${NC} SSH PORT PROFILE                       \033[0;34m│${NC}"
+echo -e "\033[0;34m│  ${GREEN}[26]${NC} CLOUD BACKUP CONNECTOR (R2)            \033[0;34m│${NC}"
+echo -e "\033[0;34m│  ${GREEN}[x ]${NC} BACK                                   \033[0;34m│${NC}"
+echo -e "\033[0;34m└──────────────────────────────────────────────┘${NC}"
+#echo -e "Press [x] Back | UI Mode: ${YELLOW}${UI_MODE}${NC} | Last update: $(date +%F)"
+read -p "Select From Options [1-26,x] : " menu
 case $menu in
 1 | 01)
     run
@@ -103,6 +83,51 @@ menu
   ;;
 12)
   ganti-versi-db
+  ;;
+13)
+  m-warp
+  ;;
+14)
+  m-routing
+  ;;
+15)
+  m-security
+  ;;
+16)
+  m-autoupdate
+  ;;
+17)
+  m-uimode
+  ;;
+18)
+  m-healthcheck
+  ;;
+19)
+  m-configcheck
+  ;;
+20)
+  m-backup-rotation
+  ;;
+21)
+  m-domain-check
+  ;;
+22)
+  m-abuse
+  ;;
+23)
+  m-emergency
+  ;;
+24)
+  m-customdns
+  ;;
+25)
+  m-ssh-port
+  ;;
+26)
+  m-cloud-backup
+  ;;
+x|X)
+  menu
   ;;
 *)
    menu

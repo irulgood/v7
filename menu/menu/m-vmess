@@ -29,6 +29,8 @@ GREEN='\033[0;36m'
 ORANGE='\033[0;33m'
 LIGHT='\033[0;37m'
 grenbo="\e[92;1m"
+MODE_FILE="/etc/ari-ui-mode"
+[ -f "$MODE_FILE" ] && UI_MODE="$(cat "$MODE_FILE")" || UI_MODE="full"
 ###lock vmwss
 function lock() {
     clear
@@ -98,7 +100,7 @@ echo -e "$COLOR1│${NC} ${COLBG1}             • UNLOCKED XRAY USER •       
 echo -e "$COLOR1└─────────────────────────────────────────────────┘${NC}"
 echo -e "$COLOR1┌─────────────────────────────────────────────────┐${NC}"
 echo -e "$COLOR1│${NC}   • Accound unlocked Successfully"
-echo -e "$COLOR1│${NC}"
+echo -e "$COLOR1\033[0;34m│${NC}"
 echo -e "$COLOR1│${NC}   • Client Name : $user"
 echo -e "$COLOR1│${NC}   • Expired On  : $exp"
 echo -e "$COLOR1└─────────────────────────────────────────────────┘${NC}"
@@ -163,54 +165,102 @@ echo ""
 fi
 }
 red() { echo -e "\\033[32;1m${*}\\033[0m"; }
+create_custom_uuid_vmess() {
+    read -rp "Input custom UUID : " custom_uuid
+    if [ -z "$custom_uuid" ]; then
+        echo -e "${RED}UUID tidak boleh kosong.${NC}"
+        sleep 1
+        m-vmess
+        return
+    fi
+    CUSTOM_UUID="$custom_uuid" addws
+}
 # Getting
 ipsaya=$(wget -qO- ipinfo.io/ip)
 data_server=$(curl -v --insecure --silent https://google.com/ 2>&1 | grep Date | sed -e 's/< Date: //')
 date_list=$(date +"%Y-%m-%d" -d "$data_server")
 clear
-echo -e "\033[0;34m┌──────────────────────────────────────────┐\033[0m"
-echo -e "                 MENU VMESS              $NC"
-echo -e "\033[0;34m└──────────────────────────────────────────┘\033[0m"
-echo -e "\033[0;34m┌──────────────────────────────────────────┐\033[0m"
-echo -e "  ${GREEN}1.${NC} ${WHITE}Creating Vmess Account WS/GRPC${NC}"
-echo -e "  ${GREEN}2.${NC} ${WHITE}Creating Trial Vmess Account WS/GRPC${NC}"
-echo -e "  ${GREEN}3.${NC} ${WHITE}Delete Vmess Account WS/GRPC${NC}"
-echo -e "  ${GREEN}4.${NC} ${WHITE}Renew Vmess Account${NC}"
-echo -e "  ${GREEN}5.${NC} ${WHITE}Check Vmess login Account${NC}"
-echo -e "  ${GREEN}6.${NC} ${WHITE}Check Config Vmess Account${NC}"
-echo -e "  ${GREEN}7.${NC} ${WHITE}Lock Vmess Account${NC}"
-echo -e "  ${GREEN}8.${NC} ${WHITE}Unlock Vmess Account${NC}"
-echo -e "  ${GREEN}9.${NC} ${WHITE}Unlock Change UUID Vmess Account${NC}"
-echo -e "\033[0;34m└──────────────────────────────────────────┘\033[0m"
-echo -e ""
-read -p "Select From Options [ 1 - 6 ] : " menu
+echo -e "\033[0;34m┌──────────────────────────────────────────────┐${NC}"
+echo -e "\033[0;34m│ \033[41;97m                  VMESS MENU                \033[0;34m \033[0;34m│${NC}"
+echo -e "\033[0;34m└──────────────────────────────────────────────┘${NC}"
+echo -e "\033[0;34m┌──────────────────────────────────────────────┐${NC}"
+echo -e "\033[0;34m│  ${GREEN}1.)${NC} Create                                  \033[0;34m│${NC}"
+echo -e "\033[0;34m│  ${GREEN}2.)${NC} Create [Custom UUID]                    \033[0;34m│${NC}"
+echo -e "\033[0;34m│  ${GREEN}3.)${NC} Trial                                   \033[0;34m│${NC}"
+echo -e "\033[0;34m│  ${GREEN}4.)${NC} Delete                                  \033[0;34m│${NC}"
+echo -e "\033[0;34m│  ${GREEN}5.)${NC} Renew/Extend                            \033[0;34m│${NC}"
+echo -e "\033[0;34m│  ${GREEN}6.)${NC} Modify UUID                             \033[0;34m│${NC}"
+echo -e "\033[0;34m│  ${GREEN}7.)${NC} Check Users Login                       \033[0;34m│${NC}"
+echo -e "\033[0;34m│  ${GREEN}8.)${NC} List Users                              \033[0;34m│${NC}"
+echo -e "\033[0;34m│  ──────────────────────────────────────────  \033[0;34m│${NC}"
+echo -e "\033[0;34m│  ${GREEN}9.)${NC} Lock                                    \033[0;34m│${NC}"
+echo -e "\033[0;34m│  ${GREEN}10.)${NC} Unlock                                 \033[0;34m│${NC}"
+echo -e "\033[0;34m│  ──────────────────────────────────────────  \033[0;34m│${NC}"
+echo -e "\033[0;34m│  ${GREEN}11.)${NC} Check Config                           \033[0;34m│${NC}"
+echo -e "\033[0;34m│  ${GREEN}12.)${NC} Recovery                               \033[0;34m│${NC}"
+echo -e "\033[0;34m│  ${GREEN}13.)${NC} Edit Limit IP                          \033[0;34m│${NC}"
+echo -e "\033[0;34m│  ${GREEN}14.)${NC} Edit Limit IP All                      \033[0;34m│${NC}"
+echo -e "\033[0;34m│  ${GREEN}15.)${NC} Edit Limit Bandwidth                   \033[0;34m│${NC}"
+echo -e "\033[0;34m│  ${GREEN}16.)${NC} Edit Limit All Bandwidth               \033[0;34m│${NC}"
+echo -e "\033[0;34m│  ${GREEN}17.)${NC} Back to Menu                           \033[0;34m│${NC}"
+echo -e "\033[0;34m│  ${GREEN}x.)${NC} Exit                                    \033[0;34m│${NC}"
+echo -e "\033[0;34m└──────────────────────────────────────────────┘${NC}"
+#echo -e "Press [x] Back | UI: ${ORANGE}${UI_MODE}${NC} | Last update: $(date +%F)"
+read -p " Select From Options [1-17,x] : " menu
 case $menu in
 1)   clear ;
     addws
     ;;
 2) clear ;
-    trialws
+    create_custom_uuid_vmess
     ;;
 3) clear ;
-    delws
+    trialws
     ;;
 4) clear ;
-    renewws
+    delws
     ;;
 5) clear ;
-    cekws
+    renewws
     ;;
 6) clear ;
-    user-ws
+    change
     ;;
 7) clear ;
-    lock
+    cekws
     ;;
 8) clear ;
-    unlock
+    user-ws
     ;;
 9) clear ;
-    change
+    lock
+    ;;
+10) clear ;
+    unlock
+    ;;
+11) clear ;
+    user-ws
+    ;;
+12) clear ;
+    restore
+    ;;
+13) clear ;
+    limitspeed
+    ;;
+14) clear ;
+    wondershaper
+    ;;
+15) clear ;
+    wondershaper
+    ;;
+16) clear ;
+    wondershaper
+    ;;
+17|0|00) clear ;
+    menu
+    ;;
+x|X) clear ;
+    exit 0
     ;;
 *) clear ;
     menu

@@ -15,7 +15,7 @@ MYIP=$(curl -sS ipv4.icanhazip.com)
 clear
 IP=$(wget -qO- icanhazip.com)
 dateToday=$(date +"%Y-%m-%d")
-Name=$(curl https://raw.githubusercontent.com/IlhamStoree/vip/main/izin | grep $MYIP | awk '{print $2}')
+Name=$(cat /usr/bin/user 2>/dev/null || echo "OPEN-SOURCE")
 
 setup_bot() {
     switch=$(grep -i "switch" /root/.bckupbot | awk '{print $2}')

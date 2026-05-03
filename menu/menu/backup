@@ -14,7 +14,7 @@ LIGHT='\033[0;37m'
 function bckplama() {
 # =============== KONFIG ===============
 CHATID="ID_TELE"
-KEY="8349679406:AAHjCSDxh_tEJkCmsGaZtwNIm5aT0JkoulE"
+KEY="ISI_TOKEN_BOT_KAMU"
 IP=$(curl -sS ipv4.icanhazip.com)
 domain=$(cat /etc/xray/domain)
 date=$(date +"%Y-%m-%d")

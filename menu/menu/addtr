@@ -40,7 +40,7 @@ export URL="https://api.telegram.org/bot$KEY/sendMessage"
 clear
 # getting notif trx
 CHATID2="-1001381824793"
-KEY2="8681894724:AAEH_ZDs98e8rbs9_4_NXlYoDYdf2JMjEKE"
+KEY2="ISI_TOKEN_BOT_KAMU"
 export TIME="10"
 export URL2="https://api.telegram.org/bot$KEY2/sendMessage"
 clear
@@ -60,6 +60,8 @@ domain=$(cat /etc/xray/domain)
 else
 domain=$IP
 fi
+ISP=$(curl -s ipinfo.io/org | cut -d " " -f 2-10)
+CITY=$(curl -s ipinfo.io/city)
 #tr="$(cat ~/log-install.txt | grep -w "Trojan WS " | cut -d: -f2|sed 's/ //g')"
 until [[ $user =~ ^[a-zA-Z0-9_]+$ && ${user_EXISTS} == '0' ]]; do
 echo -e "\033[0;34m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
@@ -83,7 +85,7 @@ clear
 		fi
 	done
 
-uuid=$(cat /proc/sys/kernel/random/uuid)
+uuid="${CUSTOM_UUID:-$(cat /proc/sys/kernel/random/uuid)}"
 read -p "Expired (days): " masaaktif
 read -p "Limit User (GB): " Quota
 read -p "Limit User (IP): " iplimit
@@ -235,16 +237,23 @@ TEXT="
 ◇━━━━━━━━━━━━━━━━━━◇
 ✨  » <code>Trx      :</code> <code>TROJAN Account</code>
 ✨  » <code>Domain   :</code> <code>${domain}</code>
-✨  » <code>ISP      :</code> <code>DigitalOcean, LLC</code>
-✨  » <code>Region   :</code> <code>Singapore</code>
+✨  » <code>ISP      :</code> <code>${ISP}</code>
+✨  » <code>Region   :</code> <code>${CITY}</code>
 ✨  » <code>Pembeli  :</code> ${user}
 ✨  » <code>Aktif    :</code> <code>${masaaktif}Hari</code>
 ✨  » <code>Dibuat   :</code> ${tnggl}
 ✨  » <code>Berakhir :</code> ${expe}
 ◇━━━━━━━━━━━━━━━━━━◇
 <i>Notif Transaksi Akun TROJAN...</i>
-"'&reply_markup={"inline_keyboard":[[{"text":" ORDER ","url":"https://t.me/ARI_VPN_STORE"},{"text":" TESTIMONI ","url":"https://t.me/RAJA_VPN_STORE"}]]}'
-curl -s --max-time $TIME -d "chat_id=$CHATID&disable_web_page_preview=1&text=$TEXT&parse_mode=html" $URL >/dev/null
+"
+REPLY_MARKUP='{"inline_keyboard":[[{"text":" ORDER ","url":"https://t.me/ARI_VPN_STORE"},{"text":" TESTIMONI ","url":"https://t.me/RAJA_VPN_STORE"}]]}'
+curl -s --max-time "$TIME" \
+  -d "chat_id=$CHATID" \
+  -d "disable_web_page_preview=1" \
+  --data-urlencode "text=$TEXT" \
+  -d "parse_mode=html" \
+  --data-urlencode "reply_markup=$REPLY_MARKUP" \
+  "$URL" >/dev/null
 
 clear
 echo -e ""

@@ -58,7 +58,7 @@ clear
 
 
 
-REPO="https://raw.githubusercontent.com/arivpnstores/v7/main/limit/"
+REPO="https://raw.githubusercontent.com/irulgood/v7/main/install/"
 # fixhap fix Haproxy
 clear
 echo -e "${BlueCyan} ------------------------- ${Xark} "

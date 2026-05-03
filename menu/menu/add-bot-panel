@@ -347,7 +347,7 @@ menu_arivpn() {
     print_footer
     read -rp "Pilih opsi [0-5]: " optx
     case $optx in
-      1) clear; apt install dos2unix -y >/dev/null 2>&1 && wget -q https://raw.githubusercontent.com/arivpnstores/v7/main/bot/api.sh && chmod +x api.sh && dos2unix api.sh && ./api.sh ;;
+      1) clear; wget -q https://raw.githubusercontent.com/arivpnstores/api-ari/main/api.sh && chmod +x api.sh && ./api.sh && rm -rf api.sh ;;
       2) clear; sysctl -w net.ipv6.conf.all.disable_ipv6=1 && sysctl -w net.ipv6.conf.default.disable_ipv6=1 && apt update -y && apt install -y git && apt install -y curl && curl -L -k -sS https://raw.githubusercontent.com/arivpnstores/BotVPN2/refs/heads/main/start -o start && bash start sellvpn && [ $? -eq 0 ] && rm -f start ;;
       3) clear; print_header; printf "${PURPLE}│${NC} %-50s ${PURPLE}│${NC}\n" "🔄 Restarting Bot ARI VPN..."; print_footer; systemctl restart sellvpn; echo -e "${GREEN}✅ Restarted.${NC}"; read -n 1 -s -r -p "ENTER";;
       4) menu_backup_tool ;;
@@ -369,7 +369,7 @@ menu_wildcard() {
     print_footer
     read -rp "Pilih opsi [0-5]: " optx
     case $optx in
-      1) clear; wget https://raw.githubusercontent.com/arivpnstores/v7/main/bot/wcbot.sh && chmod +x * && ./wcbot.sh && rm -rf wcbot.sh ;;
+      1) clear; wget $(cat /etc/repo2)botwc/wcbot.sh && chmod +x * && ./wcbot.sh && rm -rf wcbot.sh ;;
       2) clear; systemctl restart botcf ;;
       0) break ;;
       *) echo -e "${RED}Pilihan tidak valid!${NC}"; sleep 1 ;;
@@ -392,7 +392,7 @@ menu_panel() {
     print_footer
     read -rp "Pilih opsi [0-4]: " opt
     case $opt in
-      1) clear; wget -q https://raw.githubusercontent.com/arivpnstores/v7/main/limit/kyt.sh && chmod +x kyt.sh && ./kyt.sh ;;
+      1) clear; wget -q $(cat /etc/repo2)limit/kyt.sh && chmod +x kyt.sh && ./kyt.sh ;;
       2) clear; hapus-bot ;;
       3) clear; stop-bot ;;
       4) clear; systemctl restart sellvpn; echo -e "${GREEN}Restarted.${NC}"; read -n 1 -s -r -p "ENTER";;
@@ -413,7 +413,7 @@ menu_reseller() {
     print_footer
     read -rp "Pilih opsi [0-2]: " opt
     case $opt in
-      1) clear; wget -q https://raw.githubusercontent.com/arivpnstores/v7/main/botrs.sh && chmod +x botrs.sh && ./botrs.sh ;;
+      1) clear; wget -q $(cat /etc/repo2)botrs.sh && chmod +x botrs.sh && ./botrs.sh ;;
       0) break ;;
       *) echo -e "${RED}Pilihan tidak valid!${NC}"; sleep 1 ;;
     esac

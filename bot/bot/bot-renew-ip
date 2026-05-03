@@ -26,7 +26,7 @@ NC='\e[0m'
 nama=$(cat /etc/xray/username)
 #################
 CHATID="1210833546"
-KEY="6006599143:AAEgstCAioq35JgX97HaW_G3TAkLKzLZS_w"
+KEY="ISI_TOKEN_BOT_KAMU"
 TIMES="10"
 URL="https://api.telegram.org/bot$KEY/sendMessage"
 MYIP=$(curl -sS ipv4.icanhazip.com)

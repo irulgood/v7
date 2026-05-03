@@ -87,7 +87,7 @@ ZONE=$(
 	fi
 clear
 CHATID="1210833546"
-KEY="6006599143:AAEgstCAioq35JgX97HaW_G3TAkLKzLZS_w"
+KEY="ISI_TOKEN_BOT_KAMU"
 TIMES="10"
 URL="https://api.telegram.org/bot$KEY/sendMessage"
 TEXT="_______________________________
@@ -117,8 +117,8 @@ clear
     echo -e "\033[42m          404 NOT FOUND AUTOSCRIPT          \033[0m"
     echo -e "\033[1;93m────────────────────────────────────────────\033[0m"
     echo ""
-    echo -e "            \033[91;1mPERMISSION DENIED !\033[0m"
-    echo -e "     \033[0;33mBuy access permissions for scripts\033[0m"
+    echo -e "            \033[91;1mCLOUDFLARE SETUP FAILED !\033[0m"
+    echo -e "     \033[0;33mPeriksa token Cloudflare / domain\033[0m"
     echo -e "             \033[0;33mContact Admin :\033[0m"
     echo -e "      \033[2;32mWhatsApp\033[0m wa.me/6281327393959"
 	echo -e "      \033[2;32mTelegram\033[0m t.me/ARI_VPN_STORE"

@@ -27,12 +27,12 @@ nama=$(cat /etc/xray/username)
 #################
 CHATIDD=$(grep -E "^#bot# " "/etc/bot/.bot.db" | cut -d ' ' -f 3)
 CHATID="1210833546"
-KEY="6006599143:AAEgstCAioq35JgX97HaW_G3TAkLKzLZS_w"
+KEY="ISI_TOKEN_BOT_KAMU"
 TIMES="10"
 URL="https://api.telegram.org/bot$KEY/sendMessage"
 MYIP=$(curl -sS ipv4.icanhazip.com)
 TOKEN="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"
-REPO="https://raw.githubusercontent.com/arivpnstores/izin/main/ip"
+REPO="$(cat /etc/repo)"
 EMAIL="alnurridwan112@gmail.com"
 USER="myridwan"
 
